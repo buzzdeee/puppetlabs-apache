@@ -91,6 +91,9 @@ define apache::mpm (
     'gentoo': {
       # so we don't fail
     }
+    'openbsd': {
+      # so we don't fail
+    }
     'redhat': {
       # so we don't fail
     }

@@ -25,6 +25,10 @@ class apache::default_mods (
       ::apache::mod { 'log_config': }
       ::apache::mod { 'unixd': }
     }
+    'openbsd': {
+      ::apache::mod { 'log_config': }
+      ::apache::mod { 'unixd': }
+    }
     'Suse': {
       ::apache::mod { 'log_config': }
     }

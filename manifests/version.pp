@@ -32,6 +32,9 @@ class apache::version {
     'FreeBSD': {
       $default = '2.4'
     }
+    'OpenBSD': {
+      $default = '2.4'
+    }
     'Gentoo': {
       $default = '2.4'
     }

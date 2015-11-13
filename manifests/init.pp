@@ -273,7 +273,13 @@ class apache (
         $error_log            = 'httpd-error.log'
         $scriptalias          = '/usr/local/www/apache24/cgi-bin'
         $access_log_file      = 'httpd-access.log'
-      } 'gentoo': {
+      } 
+      'openbsd': {
+        $error_log            = 'error.log'
+        $scriptalias          = '/var/www/cgi-bin'
+        $access_log_file      = 'access.log'
+      }
+      'gentoo': {
         $error_log            = 'error.log'
         $error_documents_path = '/usr/share/apache2/error'
         $scriptalias          = '/var/www/localhost/cgi-bin'
