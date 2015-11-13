@@ -88,13 +88,8 @@ class apache::mod::prefork (
   }
 
   case $facts['os']['family'] {
-    'RedHat', 'Debian', 'FreeBSD': {
+    'RedHat', 'Debian', 'FreeBSD', 'OpenBSD': {
       ::apache::mpm { 'prefork':
-      }
-    }
-    'Suse': {
-      ::apache::mpm { 'prefork':
-        lib_path       => '/usr/lib64/apache2-prefork',
       }
     }
     'Gentoo': {

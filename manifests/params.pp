@@ -588,6 +588,66 @@ class apache::params inherits apache::version {
     $error_log            = 'httpd-error.log'
     $scriptalias          = '/usr/local/www/apache24/cgi-bin'
     $access_log_file      = 'httpd-access.log'
+  } elsif $facts['os']['family'] == 'OpenBSD' {
+    $user             = 'www'
+    $group            = 'www'
+    $root_group       = 'wheel'
+    $apache_name      = 'apache-httpd'
+    $service_name     = 'apache2'
+    $httpd_dir        = '/etc/apache2'
+    $server_root      = '/var/www'
+    $conf_dir         = $httpd_dir
+    $confd_dir        = "${httpd_dir}/includes"
+    $mod_dir          = "${httpd_dir}/modules"
+    $mod_enable_dir   = undef
+    $vhost_dir        = "${httpd_dir}/vhosts"
+    $vhost_enable_dir = undef
+    $conf_file        = 'httpd2.conf'
+    $ports_file       = "${conf_dir}/ports.conf"
+    $pidfile          = '/var/www/logs/httpd.pid'
+    $logroot          = '/var/www/logs'
+    $logroot_mode     = '0755'
+    $lib_path         = '/usr/local/lib/apache2'
+    $mpm_module       = 'prefork'
+    $dev_packages     = undef
+    $default_ssl_cert = '/etc/apache2/server.crt'
+    $default_ssl_key  = '/etc/apache2/server.key'
+    $ssl_certs_dir    = '/etc/apache2'
+    $passenger_conf_file = undef
+    $passenger_conf_package_file = undef
+    $passenger_root   = undef
+    $passenger_ruby   = undef
+    $passenger_default_ruby = undef
+    $suphp_addhandler = undef
+    $suphp_engine     = 'off'
+    $suphp_configpath = undef
+    $mod_packages     = {
+      # NOTE: I list here only modules that are not included in apache-httpd package
+      'dnssd'    => 'ap2-mod_dnssd',
+      'fastcgi'  => 'ap2-mod_fastcgi',
+      'fcgid'    => 'ap2-mod_fcgid',
+      'jk'       => 'ap2-mod_jk',
+      'ngobjweb' => 'opengroupware',
+      'perl'     => 'ap2-mod_perl',
+      'wsgi'     => 'ap2-mod_wsgi',
+    }
+    $mod_libs         = {
+      'php5' => 'libphp5.so',
+    }
+    $conf_template        = 'apache/httpd.conf.erb'
+    $keepalive            = 'Off'
+    $keepalive_timeout    = 15
+    $max_keepalive_requests = 100
+    $fastcgi_lib_path     = undef # TODO: revisit
+    $mime_support_package = undef
+    $mime_types_config    = '/etc/apache2/mime.types'
+    $wsgi_socket_prefix   = undef
+    $docroot              = '/var/www/htdocs'
+    $alias_icons_path     = '/var/www/icons'
+    $error_documents_path = '/var/www/error'
+    $error_log            = 'httpd-error.log'
+    $scriptalias          = '/var/www/cgi-bin'
+    $access_log_file      = 'httpd-access.log'
   } elsif $facts['os']['family'] == 'Gentoo' {
     $user             = 'apache'
     $group            = 'apache'

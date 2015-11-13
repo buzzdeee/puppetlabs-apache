@@ -100,7 +100,10 @@ define apache::mpm (
     'Gentoo': {
       # so we don't fail
     }
-    'RedHat': {
+    'openbsd': {
+      # so we don't fail
+    }
+    'redhat': {
       # so we don't fail
     }
     'Suse': {
