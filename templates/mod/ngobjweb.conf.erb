@@ -1,0 +1,11 @@
+<IfModule ngobjweb_module.c>
+  <LocationMatch "^/OpenGroupware55*">
+    SetHandler NONE
+  </LocationMatch>
+<% @options.each do |key, value| -%>
+  <LocationMatch "^/<%= key %>*">
+    SetAppPort <%= value %>
+    SetHandler ngobjweb-adaptor
+  </LocationMatch>
+<% end -%>
+</IfModule>
