@@ -55,6 +55,7 @@
 [`apache::mod::geoip`]: #class-apachemodgeoip
 [`apache::mod::itk`]: #class-apachemoditk
 [`apache::mod::ldap`]: #class-apachemodldap
+[`apache::mod::ngobjweb`]: #class-apachemodngobjweb
 [`apache::mod::passenger`]: #class-apachemodpassenger
 [`apache::mod::peruser`]: #class-apachemodperuser
 [`apache::mod::prefork`]: #class-apachemodprefork
@@ -1652,6 +1653,19 @@ class { 'apache::mod::ldap':
 - `ldap_opcache_entries`: Number of entries used to cache LDAP compare operations.
 - `ldap_opcache_ttl`: Time that entries in the operation cache remain valid.
 - `package_name`: Custom package name. Defaults to `undef`.
+
+##### Class: `apache::mod::ngobjweb`
+
+Installs and configures [`mod_ngobjweb`][]. Allows you to configure OpenGroupware Apache module.
+~~~puppet
+class { 'apache::mod::ngobjweb':
+  options => {
+    'OpenGroupware' => '20000',
+    'zidestore'     => '21000',
+    'xmlrpcd'       => '22000',
+   
+  }
+}
 
 ##### Class: `apache::mod::negotiation`
 
