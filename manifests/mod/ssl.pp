@@ -35,6 +35,9 @@ class apache::mod::ssl (
       'freebsd': {
         $_ssl_mutex = 'default'
       }
+      'openbsd': {
+        $_ssl_mutex = 'default'
+      }
       'gentoo': {
         $_ssl_mutex = 'default'
       }
@@ -64,6 +67,7 @@ class apache::mod::ssl (
     'redhat'  => '/var/cache/mod_ssl/scache(512000)',
     'freebsd' => '/var/run/ssl_scache(512000)',
     'gentoo'  => '/var/run/ssl_scache(512000)',
+    'openbsd' => '/var/run/ssl_scache(512000)',
     'Suse'    => '/var/lib/apache2/ssl_scache(512000)'
   }
 
