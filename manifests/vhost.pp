@@ -2194,7 +2194,7 @@ define apache::vhost (
     }
   }
 
-  concat { "${::apache::vhost_dir}/${priority_real}${filename}.conf":
+  concat { "${priority_real}${filename}.conf":
     ensure  => $ensure,
     path    => "${apache::vhost_dir}/${priority_real}${filename}.conf",
     owner   => 'root',
@@ -2240,7 +2240,7 @@ define apache::vhost (
   }
 
   concat::fragment { "${name}-apache-header":
-    target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+    target  => "${priority_real}${filename}.conf",
     order   => 0,
     content => epp('apache/vhost/_file_header.epp', $file_header_params),
   }
@@ -2257,7 +2257,7 @@ define apache::vhost (
     }
 
     concat::fragment { "${name}-docroot":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 10,
       content => epp('apache/vhost/_docroot.epp', $docroot_params),
     }
@@ -2269,7 +2269,7 @@ define apache::vhost (
       'aliases' => $aliases,
     }
     concat::fragment { "${name}-aliases":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 20,
       content => epp('apache/vhost/_aliases.epp', $aliases_params),
     }
@@ -2281,7 +2281,7 @@ define apache::vhost (
       'kernelversion' => $facts['kernelversion'],
     }
     concat::fragment { "${name}-itk":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 30,
       content => epp('apache/vhost/_itk.epp', $itk_params),
     }
@@ -2292,7 +2292,7 @@ define apache::vhost (
       'fallbackresource' => $fallbackresource,
     }
     concat::fragment { "${name}-fallbackresource":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 40,
       content => epp('apache/vhost/_fallbackresource.epp', $fall_back_res_params),
     }
@@ -2303,7 +2303,7 @@ define apache::vhost (
       'allow_encoded_slashes' => $allow_encoded_slashes,
     }
     concat::fragment { "${name}-allow_encoded_slashes":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 50,
       content => epp('apache/vhost/_allow_encoded_slashes.epp', $allow_encoded_slashes_params),
     }
@@ -2378,7 +2378,7 @@ define apache::vhost (
   # - $use_optional_includes
   if $additional_includes and ! empty($additional_includes) {
     concat::fragment { "${name}-additional_includes":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 70,
       content => template('apache/vhost/_additional_includes.erb'),
     }
@@ -2392,7 +2392,7 @@ define apache::vhost (
       'error_log_format'      => $error_log_format,
     }
     concat::fragment { "${name}-logging":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 80,
       content => epp('apache/vhost/_logging.epp', $logging_params),
     }
@@ -2400,7 +2400,7 @@ define apache::vhost (
 
   # Template uses no variables
   concat::fragment { "${name}-serversignature":
-    target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+    target  => "${priority_real}${filename}.conf",
     order   => 90,
     content => "  ServerSignature Off\n",
   }
@@ -2413,7 +2413,7 @@ define apache::vhost (
   # - $_access_log_env_var
   if !empty($_access_logs) {
     concat::fragment { "${name}-access_log":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 100,
       content => template('apache/vhost/_access_log.erb'),
     }
@@ -2421,7 +2421,7 @@ define apache::vhost (
 
   if $action {
     concat::fragment { "${name}-action":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 110,
       content => epp('apache/vhost/_action.epp', { 'action' => $action }),
     }
@@ -2431,7 +2431,7 @@ define apache::vhost (
   # - $block
   if $block and ! empty($block) {
     concat::fragment { "${name}-block":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 120,
       content => template('apache/vhost/_block.erb'),
     }
@@ -2441,7 +2441,7 @@ define apache::vhost (
   # - $error_documents
   if $error_documents and ! empty($error_documents) {
     concat::fragment { "${name}-error_document":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 130,
       content => template('apache/vhost/_error_document.erb'),
     }
@@ -2451,7 +2451,7 @@ define apache::vhost (
     include apache::mod::headers
 
     concat::fragment { "${name}-header":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 140,
       content => epp('apache/vhost/_header.epp', { 'headers' => $headers }),
     }
@@ -2461,7 +2461,7 @@ define apache::vhost (
     include apache::mod::headers
 
     concat::fragment { "${name}-requestheader":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf", 
+      target  => "${priority_real}${filename}.conf",
       order   => 150,
       content => epp('apache/vhost/_requestheader.epp', { 'request_headers' => $request_headers }),
     }
@@ -2524,7 +2524,7 @@ define apache::vhost (
     include apache::mod::alias
 
     concat::fragment { "${name}-redirect":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 180,
       content => template('apache/vhost/_redirect.erb'),
     }
@@ -2540,7 +2540,7 @@ define apache::vhost (
   if (! empty($rewrites) or $rewrite_rule or $rewrite_inherit) and $ensure == 'present' {
     include apache::mod::rewrite
     concat::fragment { "${name}-rewrite":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 190,
       content => template('apache/vhost/_rewrite.erb'),
     }
@@ -2549,7 +2549,7 @@ define apache::vhost (
   if $scriptalias and $ensure == 'present' {
     include apache::mod::alias
     concat::fragment { "${name}-scriptalias":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 200,
       content => epp('apache/vhost/_scriptalias.epp', { 'scriptalias' => $scriptalias }),
     }
@@ -2557,7 +2557,7 @@ define apache::vhost (
 
   if ! empty($serveraliases) and $ensure == 'present' {
     concat::fragment { "${name}-serveralias":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 210,
       content => epp('apache/vhost/_serveralias.epp', { 'serveraliases' => [$serveraliases].flatten }),
     }
@@ -2578,7 +2578,7 @@ define apache::vhost (
     }
 
     concat::fragment { "${name}-setenv":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 220,
       content => template('apache/vhost/_setenv.erb'),
     }
@@ -2606,7 +2606,7 @@ define apache::vhost (
   if $ssl and $ensure == 'present' {
     include apache::mod::ssl
     concat::fragment { "${name}-ssl":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 230,
       content => template('apache/vhost/_ssl.erb'),
     }
@@ -2634,7 +2634,7 @@ define apache::vhost (
     include apache::mod::auth_kerb
 
     concat::fragment { "${name}-auth_kerb":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 230,
       content => stdlib::deferrable_epp('apache/vhost/_auth_kerb.epp', {
           'auth_kerb'              => $auth_kerb,
@@ -2656,7 +2656,7 @@ define apache::vhost (
   # - $php_flags
   if ($php_values and ! empty($php_values)) or ($php_flags and ! empty($php_flags)) {
     concat::fragment { "${name}-php":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 240,
       content => template('apache/vhost/_php.erb'),
     }
@@ -2667,7 +2667,7 @@ define apache::vhost (
   # - $php_admin_flags
   if ($php_admin_values and ! empty($php_admin_values)) or ($php_admin_flags and ! empty($php_admin_flags)) {
     concat::fragment { "${name}-php_admin":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 250,
       content => template('apache/vhost/_php_admin.erb'),
     }
@@ -2692,7 +2692,7 @@ define apache::vhost (
     }
 
     concat::fragment { "${name}-wsgi":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 260,
       content => epp('apache/vhost/_wsgi.epp', $wsgi_params),
     }
@@ -2703,7 +2703,7 @@ define apache::vhost (
       'custom_fragment' => $custom_fragment,
     }
     concat::fragment { "${name}-custom_fragment":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 270,
       content => epp('apache/vhost/_custom_fragment.epp', $custom_fragment_params),
     }
@@ -2713,7 +2713,7 @@ define apache::vhost (
     include apache::mod::suexec
 
     concat::fragment { "${name}-suexec":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 290,
       content => "  SuexecUserGroup ${suexec_user_group}\n",
     }
@@ -2811,7 +2811,7 @@ define apache::vhost (
     }
 
     concat::fragment { "${name}-passenger":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 300,
       content => epp('apache/vhost/_passenger.epp', $passenger_params),
     }
@@ -2822,7 +2822,7 @@ define apache::vhost (
       'add_default_charset' => $add_default_charset,
     }
     concat::fragment { "${name}-charsets":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 310,
       content => epp('apache/vhost/_charsets.epp', $charsets_params),
     }
@@ -2842,7 +2842,7 @@ define apache::vhost (
       'modsec_allowed_methods'            => $modsec_allowed_methods,
     }
     concat::fragment { "${name}-security":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 320,
       content => epp('apache/vhost/_security.epp', $security_params),
     }
@@ -2852,7 +2852,7 @@ define apache::vhost (
     include apache::mod::filter
 
     concat::fragment { "${name}-filters":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 330,
       content => epp('apache/vhost/_filters.epp', { 'filters' => $filters }),
     }
@@ -2862,7 +2862,7 @@ define apache::vhost (
     include apache::mod::jk
 
     concat::fragment { "${name}-jk_mounts":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 340,
       content => epp('apache/vhost/_jk_mounts.epp', { 'jk_mounts' => $jk_mounts }),
     }
@@ -2875,7 +2875,7 @@ define apache::vhost (
       'max_keepalive_requests' => $max_keepalive_requests,
     }
     concat::fragment { "${name}-keepalive_options":
-      target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+      target  => "${priority_real}${filename}.conf",
       order   => 350,
       content => epp('apache/vhost/_keepalive_options.epp', $keep_alive_params),
     }
@@ -2955,7 +2955,7 @@ define apache::vhost (
     'passenger_pre_start' => $passenger_pre_start,
   }
   concat::fragment { "${name}-file_footer":
-    target  => "${::apache::vhost_dir}/${priority_real}${filename}.conf",
+    target  => "${priority_real}${filename}.conf",
     order   => 999,
     content => epp('apache/vhost/_file_footer.epp', $file_footer_params),
   }
