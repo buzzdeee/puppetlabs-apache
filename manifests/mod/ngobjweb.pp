@@ -1,6 +1,8 @@
 class apache::mod::ngobjweb(
   $options = {},
-) {
+)  inherits ::apache::params {
+
+  include ::apache
 
   ::apache::mod { 'ngobjweb':
     loadfile_name => 'ngobjweb.load',
