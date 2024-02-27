@@ -612,6 +612,7 @@ class apache::params inherits apache::version {
     $dev_packages     = undef
     $default_ssl_cert = '/etc/apache2/server.crt'
     $default_ssl_key  = '/etc/apache2/server.key'
+    $ssl_sessioncache = '/var/run/ssl_scache(512000)'
     $passenger_conf_file = undef
     $passenger_conf_package_file = undef
     $passenger_root   = undef
