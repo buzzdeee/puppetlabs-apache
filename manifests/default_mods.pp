@@ -105,6 +105,41 @@ class apache::default_mods (
         ::apache::mod { 'session': }
         ::apache::mod { 'unique_id': }
       }
+      'OpenBSD': {
+        include apache::mod::actions
+        include apache::mod::authn_core
+        include apache::mod::cache
+        include apache::mod::disk_cache
+        include apache::mod::filter
+        include apache::mod::headers
+        include apache::mod::info
+        include apache::mod::mime_magic
+        include apache::mod::reqtimeout
+        include apache::mod::rewrite
+        include apache::mod::speling
+        include apache::mod::userdir
+        include apache::mod::version
+        include apache::mod::vhost_alias
+
+        ::apache::mod { 'asis': }
+        ::apache::mod { 'auth_digest': }
+        ::apache::mod { 'auth_form': }
+        ::apache::mod { 'authn_anon': }
+        ::apache::mod { 'authn_dbm': }
+        ::apache::mod { 'authn_socache': }
+        ::apache::mod { 'authz_dbd': }
+        ::apache::mod { 'authz_dbm': }
+        ::apache::mod { 'authz_owner': }
+        ::apache::mod { 'dumpio': }
+        ::apache::mod { 'expires': }
+        ::apache::mod { 'file_cache': }
+        ::apache::mod { 'imagemap': }
+        ::apache::mod { 'include': }
+        ::apache::mod { 'logio': }
+        ::apache::mod { 'request': }
+        ::apache::mod { 'session': }
+        ::apache::mod { 'unique_id': }
+      }
       default: {}
     }
     case $apache::mpm_module {
