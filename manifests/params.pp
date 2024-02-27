@@ -633,7 +633,7 @@ class apache::params inherits apache::version {
     $mod_libs         = {
       'php5' => 'libphp5.so',
     }
-    $conf_template        = 'apache/httpd.conf.erb'
+    $conf_template        = 'apache/httpd.conf.epp'
     $keepalive            = 'Off'
     $keepalive_timeout    = 15
     $max_keepalive_requests = 100
