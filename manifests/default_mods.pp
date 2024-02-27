@@ -109,7 +109,6 @@ class apache::default_mods (
         include apache::mod::actions
         include apache::mod::authn_core
         include apache::mod::cache
-        include apache::mod::disk_cache
         include apache::mod::filter
         include apache::mod::headers
         include apache::mod::info
