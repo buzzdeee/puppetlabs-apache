@@ -85,7 +85,7 @@
 class apache::mod::ssl (
   Boolean $ssl_compression                                  = false,
   Optional[Boolean] $ssl_sessiontickets                     = undef,
-  String $ssl_cryptodevice                                  = 'builtin',
+  Optional[String] $ssl_cryptodevice                        = undef,
   Array[String] $ssl_options                                = ['StdEnvVars'],
   Optional[String] $ssl_openssl_conf_cmd                    = undef,
   Optional[Stdlib::Absolutepath] $ssl_cert                  = undef,

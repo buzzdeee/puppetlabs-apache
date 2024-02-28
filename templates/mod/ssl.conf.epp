@@ -17,7 +17,9 @@
   <%- if $ssl_sessiontickets != undef { -%>
   SSLSessionTickets <%= apache::bool2httpd($ssl_sessiontickets) %>
   <%- } -%>
+  <%- if $ssl_cryptodevice != undef { -%>
   SSLCryptoDevice <%= $ssl_cryptodevice %>
+  <%- } -%>
   SSLHonorCipherOrder <%= apache::bool2httpd($_ssl_honorcipherorder) %>
   <%- if $ssl_cert { -%>
   SSLCertificateFile      "<%= $ssl_cert %>"
