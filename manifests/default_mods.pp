@@ -132,7 +132,6 @@ class apache::default_mods (
         ::apache::mod { 'dumpio': }
         ::apache::mod { 'expires': }
         ::apache::mod { 'file_cache': }
-        ::apache::mod { 'imagemap': }
         ::apache::mod { 'include': }
         ::apache::mod { 'logio': }
         ::apache::mod { 'request': }
