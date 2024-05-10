@@ -127,6 +127,7 @@ class apache::mod::ssl (
       'Debian'  => "\${APACHE_RUN_DIR}/ocsp(32768)",
       'RedHat'  => '/run/httpd/ssl_stapling(32768)',
       'FreeBSD' => '/var/run/ssl_stapling(32768)',
+      'OpenBSD' => '/var/www/logs/ssl_stapling(32768)',
       'Gentoo'  => '/var/run/ssl_stapling(32768)',
       'Suse'    => '/var/lib/apache2/ssl_stapling(32768)',
     }
