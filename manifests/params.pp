@@ -655,6 +655,67 @@ class apache::params inherits apache::version {
     $error_log            = 'error.log'
     $scriptalias          = '/var/www/localhost/cgi-bin'
     $access_log_file      = 'access.log'
+  } elsif $facts['os']['family'] == 'OpenBSD' {
+    $user             = 'www'
+    $group            = 'www'
+    $root_group       = 'wheel'
+    $apache_name      = 'apache-httpd'
+    $service_name     = 'apache2'
+    $httpd_dir        = '/etc/apache2'
+    $server_root      = '/var/www'
+    $conf_dir         = $httpd_dir
+    $confd_dir        = "${httpd_dir}/Includes"
+    $conf_enabled     = undef
+    $puppet_ssl_dir   = "${httpd_dir}/puppet_ssl"
+    $mod_dir          = "${httpd_dir}/Modules"
+    $mod_enable_dir   = undef
+    $vhost_dir        = "${httpd_dir}/Vhosts"
+    $vhost_enable_dir = undef
+    $conf_file        = 'httpd.conf'
+    $ports_file       = "${conf_dir}/ports.conf"
+    $pidfile          = '/var/www/logs/httpd.pid'
+    $logroot          = '/var/www/logs'
+    $logroot_mode     = undef
+    $lib_path         = '/usr/local/lib/apache2'
+    $mpm_module       = 'prefork'
+    $dev_packages     = undef
+    $default_ssl_cert = '/etc/apache2/server.crt'
+    $default_ssl_key  = '/etc/apache2/server.key'
+    $ssl_sessioncache  = '/var/run/ssl_scache(512000)'
+    $passenger_conf_file = 'passenger.conf'
+    $passenger_conf_package_file = undef
+    $passenger_root   = '/usr/local/lib/ruby/gems/3.2/gems/passenger-4.0.58'
+    $passenger_ruby   = '/usr/local/bin/ruby32'
+    $passenger_default_ruby = undef
+    $php_version      = '8.2'
+    $mod_packages     = {
+      # NOTE: I list here only modules that are not included in www/apache24
+      # NOTE: 'passenger' needs to enable APACHE_SUPPORT in make config
+      # NOTE: 'php' needs to enable APACHE option in make config
+      # NOTE: 'dav_svn' needs to enable MOD_DAV_SVN make config
+      # NOTE: not sure where the shibboleth should come from
+      'dnssd'       => 'ap2-mod_dnssd',
+      'jk'          => 'ap2-mod_jk',
+      'perl'        => 'ap2-mod_perl',
+      'wsgi'        => 'ap2-mod_wsgi',
+      'dav_svn'     => 'ap2-mod_subversion',
+    }
+    $mod_libs         = {
+    }
+    $conf_template        = 'apache/httpd.conf.epp'
+    $http_protocol_options = undef
+    $keepalive            = 'On'
+    $keepalive_timeout    = 15
+    $max_keepalive_requests = 100
+    $mime_support_package = undef
+    $mime_types_config    = "${conf_dir}/mime.types"
+    $wsgi_socket_prefix   = undef
+    $docroot              = '/var/www/htdocs'
+    $alias_icons_path     = '/var/www//icons'
+    $error_documents_path = '/var/www/error'
+    $error_log            = 'httpd-error.log'
+    $scriptalias          = '/var/www/cgi-bin'
+    $access_log_file      = 'httpd-access.log'
   } elsif $facts['os']['family'] == 'Suse' {
     $user                = 'wwwrun'
     $group               = 'www'
