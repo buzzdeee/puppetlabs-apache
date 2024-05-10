@@ -88,7 +88,7 @@ class apache::mod::prefork (
   }
 
   case $facts['os']['family'] {
-    'RedHat', 'Debian', 'FreeBSD': {
+    'RedHat', 'Debian', 'FreeBSD', 'OpenBSD': {
       ::apache::mpm { 'prefork':
       }
     }
