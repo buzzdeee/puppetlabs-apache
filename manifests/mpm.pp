@@ -97,6 +97,9 @@ define apache::mpm (
         mpm_module => $mpm,
       }
     }
+    'OpenBSD': {
+      # so we don't fail
+    }
     'Gentoo': {
       # so we don't fail
     }
