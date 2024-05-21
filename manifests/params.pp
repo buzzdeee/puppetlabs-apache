@@ -679,6 +679,14 @@ class apache::params inherits apache::version {
     $lib_path         = '/usr/local/lib/apache2'
     $mpm_module       = 'prefork'
     $dev_packages     = undef
+    $modsec_version       = 1
+    $modsec_crs_package   = undef
+    $modsec_crs_path      = undef
+    $modsec_default_rules = []
+    $modsec_dir           = '/etc/apache2/modsecurity'
+    $secpcrematchlimit = 1500
+    $secpcrematchlimitrecursion = 1500
+    $modsec_secruleengine = 'On'
     $default_ssl_cert = '/etc/apache2/server.crt'
     $default_ssl_key  = '/etc/apache2/server.key'
     $ssl_sessioncache  = '/var/run/ssl_scache(512000)'

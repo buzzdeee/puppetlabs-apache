@@ -89,6 +89,22 @@ describe 'apache::mod', type: :define do
     end
   end
 
+  context 'on a OpenBSD osfamily' do
+    include_examples 'OpenBSD 7'
+
+    describe 'for non-special modules' do
+      it { is_expected.to contain_class('apache::params') }
+
+      it 'manages the module load file' do
+        expect(subject).to contain_file('spec_m.load').with(path: '/etc/apache2/Modules/spec_m.load',
+                                                            content: "LoadModule spec_m_module /usr/local/lib/apache2/mod_spec_m.so\n",
+                                                            owner: 'root',
+                                                            group: 'wheel',
+                                                            mode: '0644')
+      end
+    end
+  end
+
   context 'on a Gentoo osfamily' do
     include_examples 'Gentoo'
 

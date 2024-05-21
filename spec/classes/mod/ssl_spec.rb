@@ -94,6 +94,13 @@ describe 'apache::mod::ssl', type: :class do
     it { is_expected.to contain_apache__mod('ssl') }
   end
 
+  context 'on a OpenBSD OS' do
+    include_examples 'OpenBSD 7'
+
+    it { is_expected.to contain_class('apache::params') }
+    it { is_expected.to contain_apache__mod('ssl') }
+  end
+
   context 'on a Gentoo OS' do
     include_examples 'Gentoo'
 

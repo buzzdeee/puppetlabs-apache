@@ -51,6 +51,18 @@ describe 'apache::vhost::custom', type: :define do
       }
     end
 
+    context 'on OpenBSD systems' do
+      include_examples 'OpenBSD 7'
+
+      it {
+        expect(subject).to contain_file('apache_rspec.example.com').with(
+          ensure: 'present',
+          content: 'foobar',
+          path: '/etc/apache2/Vhosts/25-rspec.example.com.conf',
+        )
+      }
+    end
+
     context 'on Gentoo systems' do
       include_examples 'Gentoo'
 

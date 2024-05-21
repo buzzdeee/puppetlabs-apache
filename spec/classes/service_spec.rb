@@ -120,6 +120,18 @@ describe 'apache::service', type: :class do
     }
   end
 
+  context 'on a OpenBSD 7 OS' do
+    include_examples 'OpenBSD 7'
+
+    it {
+      expect(subject).to contain_service('httpd').with(
+        'name' => 'apache2',
+        'ensure' => 'running',
+        'enable' => 'true',
+      )
+    }
+  end
+
   context 'on a Gentoo OS' do
     include_examples 'Gentoo'
 

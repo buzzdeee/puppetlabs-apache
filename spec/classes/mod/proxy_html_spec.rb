@@ -53,6 +53,14 @@ describe 'apache::mod::proxy_html', type: :class do
     it { is_expected.to contain_apache__mod('xml2enc').with(loadfiles: nil) }
   end
 
+  context 'on a OpenBSD OS', :compile do
+    include_examples 'OpenBSD 7'
+
+    it { is_expected.to contain_class('apache::params') }
+    it { is_expected.to contain_apache__mod('proxy_html').with(loadfiles: nil) }
+    it { is_expected.to contain_apache__mod('xml2enc').with(loadfiles: nil) }
+  end
+
   context 'on a Gentoo OS', :compile do
     include_examples 'Gentoo'
 

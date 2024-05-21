@@ -99,7 +99,7 @@ class apache::mod::worker (
   }
 
   case $facts['os']['family'] {
-    'RedHat', 'Debian', 'FreeBSD': {
+    'RedHat', 'Debian', 'FreeBSD', 'OpenBSD': {
       ::apache::mpm { 'worker':
       }
     }

@@ -74,6 +74,18 @@ describe 'apache::mod::deflate', type: :class do
       }
     end
 
+    context 'On a OpenBSD OS with default params' do
+      include_examples 'OpenBSD 7'
+
+      # Load the more generic tests for this context
+      general_deflate_specs
+
+      it {
+        expect(subject).to contain_file('deflate.conf').with(ensure: 'file',
+                                                             path: '/etc/apache2/Modules/deflate.conf')
+      }
+    end
+
     context 'On a Gentoo OS with default params' do
       include_examples 'Gentoo'
 

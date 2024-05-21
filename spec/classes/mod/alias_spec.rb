@@ -81,5 +81,12 @@ describe 'apache::mod::alias', type: :class do
       it { is_expected.to contain_apache__mod('alias') }
       it { is_expected.to contain_file('alias.conf').with(content: %r{Alias /icons/ "/usr/local/www/apache24/icons/"}) }
     end
+
+    context 'on a OpenBSD OS', :compile do
+      include_examples 'OpenBSD 7'
+
+      it { is_expected.to contain_apache__mod('alias') }
+      it { is_expected.to contain_file('alias.conf').with(content: %r{Alias /icons/ "/var/www//icons/"}) }
+    end
   end
 end

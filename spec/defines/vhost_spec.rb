@@ -6,6 +6,7 @@ describe 'apache::vhost', type: :define do
   describe 'os-independent items' do
     on_supported_os.each do |os, os_facts|
       let(:apache_name) { (facts[:os]['family'] == 'RedHat') ? 'httpd' : 'apache2' }
+      let(:log_root) { (facts[:os]['family'] == 'OpenBSD') ? '/var/www/logs' : "/var/log/#{apache_name}" }
 
       let :pre_condition do
         "class {'apache': default_vhost => false, default_mods => false, vhost_enable_dir => '/etc/#{apache_name}/sites-enabled'}"
@@ -1405,7 +1406,7 @@ describe 'apache::vhost', type: :define do
 
           it {
             expect(subject).to contain_concat__fragment('rspec.example.com-security').with(
-              content: %r{^\s*SecAuditLog "/var/log/#{apache_name}/rspec\.example\.com_security\.log"$},
+              content: %r{^\s*SecAuditLog "#{log_root}/rspec\.example\.com_security\.log"$},
             )
           }
         end
@@ -1422,7 +1423,7 @@ describe 'apache::vhost', type: :define do
 
           it {
             expect(subject).to contain_concat__fragment('rspec.example.com-security').with(
-              content: %r{\s*SecAuditLog "/var/log/#{apache_name}/foo.log"$},
+              content: %r{\s*SecAuditLog "#{log_root}/foo.log"$},
             )
           }
         end
@@ -1866,7 +1867,7 @@ describe 'apache::vhost', type: :define do
 
             it {
               expect(subject).to contain_concat__fragment('rspec.example.com-access_log').with(
-                content: %r{^\s+CustomLog "/var/log/#{apache_name}/log2"\s+combined\s*$},
+                content: %r{^\s+CustomLog "#{log_root}/log2"\s+combined\s*$},
               )
             }
 

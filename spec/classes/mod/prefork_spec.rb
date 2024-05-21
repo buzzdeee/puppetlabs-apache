@@ -44,6 +44,14 @@ describe 'apache::mod::prefork', type: :class do
     it { is_expected.to contain_file('/usr/local/etc/apache24/Modules/prefork.conf').with_ensure('file') }
   end
 
+  context 'on a OpenBSD OS' do
+    include_examples 'OpenBSD 7'
+
+    it { is_expected.to contain_class('apache::params') }
+    it { is_expected.not_to contain_apache__mod('prefork') }
+    it { is_expected.to contain_file('/etc/apache2/Modules/prefork.conf').with_ensure('file') }
+  end
+
   context 'on a Gentoo OS' do
     include_examples 'Gentoo'
 

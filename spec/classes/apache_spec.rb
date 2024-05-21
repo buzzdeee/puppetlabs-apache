@@ -616,6 +616,72 @@ describe 'apache', type: :class do
     end
   end
 
+  context 'on a OpenBSD OS' do
+    include_examples 'OpenBSD 7'
+
+    it { is_expected.to contain_class('apache::params') }
+    it { is_expected.to contain_class('apache::package').with('ensure' => 'present') }
+    it { is_expected.to contain_user('www') }
+    it { is_expected.to contain_group('www') }
+    it { is_expected.to contain_class('apache::service') }
+
+    it {
+      expect(subject).to contain_file('/var/www/htdocs').with(
+        'ensure' => 'directory',
+      )
+    }
+
+    it {
+      expect(subject).to contain_file('/etc/apache2/Vhosts').with(
+        'ensure' => 'directory', 'recurse' => 'true',
+        'purge' => 'true'
+      ).that_notifies('Class[Apache::Service]').that_requires('Package[httpd]')
+    }
+
+    it {
+      expect(subject).to contain_file('/etc/apache2/Modules').with(
+        'ensure' => 'directory', 'recurse' => 'true',
+        'purge' => 'true'
+      ).that_notifies('Class[Apache::Service]').that_requires('Package[httpd]')
+    }
+
+    it {
+      expect(subject).to contain_concat('/etc/apache2/ports.conf').with(
+        'owner' => 'root', 'group' => 'wheel',
+        'mode' => '0644'
+      ).that_notifies('Class[Apache::Service]')
+    }
+
+    # Assert that load files are placed for these mods, but no conf file.
+    ['auth_basic', 'authn_core', 'authn_file', 'authz_groupfile', 'authz_host', 'authz_user', 'dav', 'env'].each do |modname|
+      it {
+        expect(subject).to contain_file("#{modname}.load").with(
+          'path' => "/etc/apache2/Modules/#{modname}.load",
+          'ensure' => 'file',
+        )
+      }
+
+      it { is_expected.not_to contain_file("#{modname}.conf") }
+    end
+
+    # Assert that both load files and conf files are placed for these mods
+    ['alias', 'autoindex', 'dav_fs', 'deflate', 'dir', 'mime', 'negotiation', 'setenvif'].each do |modname|
+      it {
+        expect(subject).to contain_file("#{modname}.load").with(
+          'path' => "/etc/apache2/Modules/#{modname}.load",
+          'ensure' => 'file',
+        )
+      }
+
+      it {
+        expect(subject).to contain_file("#{modname}.conf").with(
+          'path' => "/etc/apache2/Modules/#{modname}.conf",
+          'ensure' => 'file',
+        )
+      }
+    end
+  end
+
   context 'on a Gentoo OS' do
     include_examples 'Gentoo'
 

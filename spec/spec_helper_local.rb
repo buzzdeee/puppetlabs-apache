@@ -57,6 +57,30 @@ shared_context 'RedHat 8' do
   let(:facts) { on_supported_os['redhat-8-x86_64'] }
 end
 
+#shared_context 'OpenBSD 7' do
+#  let(:facts) { on_supported_os['openbsd-7-x86_64'] }
+#end
+
+shared_context 'OpenBSD 7' do
+  let :facts do
+    {
+      kernel: 'OpenBSD',
+      path: '/sbin:/usr/sbin:/bin:/usr/bin:/usr/X11R6/bin:/usr/local/sbin:/usr/local/bin',
+      os: {
+        name: 'OpenBSD',
+        family: 'OpenBSD',
+        release: {
+          major: '7',
+          full: '7.5'
+        }
+      },
+      identity: {
+        uid: 'root'
+      }
+    }
+  end
+end
+
 shared_context 'Fedora 28' do
   let :facts do
     {
